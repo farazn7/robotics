@@ -1,0 +1,24 @@
+[1.223s] Invoking command in '/home/pavan/detector': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/pavan/detector/build/detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pavan/detector/install/detector/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/detector build --build-base /home/pavan/detector/build/detector/build install --record /home/pavan/detector/build/detector/install.log --single-version-externally-managed install_data
+[1.633s] running egg_info
+[1.662s] writing build/detector/detector.egg-info/PKG-INFO
+[1.662s] writing dependency_links to build/detector/detector.egg-info/dependency_links.txt
+[1.665s] writing entry points to build/detector/detector.egg-info/entry_points.txt
+[1.666s] writing requirements to build/detector/detector.egg-info/requires.txt
+[1.666s] writing top-level names to build/detector/detector.egg-info/top_level.txt
+[1.728s] reading manifest file 'build/detector/detector.egg-info/SOURCES.txt'
+[1.729s] writing manifest file 'build/detector/detector.egg-info/SOURCES.txt'
+[1.729s] running build
+[1.729s] running build_py
+[1.730s] copying detector/color.py -> /home/pavan/detector/build/detector/build/lib/detector
+[1.730s] running install
+[1.738s] running install_lib
+[1.768s] copying /home/pavan/detector/build/detector/build/lib/detector/color.py -> /home/pavan/detector/install/detector/lib/python3.12/site-packages/detector
+[1.769s] byte-compiling /home/pavan/detector/install/detector/lib/python3.12/site-packages/detector/color.py to color.cpython-312.pyc
+[1.772s] running install_data
+[1.772s] running install_egg_info
+[1.805s] removing '/home/pavan/detector/install/detector/lib/python3.12/site-packages/detector-0.0.0-py3.12.egg-info' (and everything under it)
+[1.806s] Copying build/detector/detector.egg-info to /home/pavan/detector/install/detector/lib/python3.12/site-packages/detector-0.0.0-py3.12.egg-info
+[1.807s] running install_scripts
+[2.004s] Installing detect_node script to /home/pavan/detector/install/detector/lib/detector
+[2.004s] writing list of installed files to '/home/pavan/detector/build/detector/install.log'
+[2.052s] Invoked command in '/home/pavan/detector' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/pavan/detector/build/detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pavan/detector/install/detector/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/detector build --build-base /home/pavan/detector/build/detector/build install --record /home/pavan/detector/build/detector/install.log --single-version-externally-managed install_data

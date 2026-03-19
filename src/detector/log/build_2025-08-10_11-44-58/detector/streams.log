@@ -1,0 +1,37 @@
+[0.744s] Invoking command in '/home/harshitha/shunya_remote2025_ws/src/detector': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/harshitha/shunya_remote2025_ws/src/detector/build/detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/detector build --build-base /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build install --record /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/install.log --single-version-externally-managed install_data
+[1.013s] running egg_info
+[1.013s] creating build/detector/detector.egg-info
+[1.033s] writing build/detector/detector.egg-info/PKG-INFO
+[1.034s] writing dependency_links to build/detector/detector.egg-info/dependency_links.txt
+[1.034s] writing entry points to build/detector/detector.egg-info/entry_points.txt
+[1.034s] writing requirements to build/detector/detector.egg-info/requires.txt
+[1.034s] writing top-level names to build/detector/detector.egg-info/top_level.txt
+[1.034s] writing manifest file 'build/detector/detector.egg-info/SOURCES.txt'
+[1.078s] reading manifest file 'build/detector/detector.egg-info/SOURCES.txt'
+[1.078s] writing manifest file 'build/detector/detector.egg-info/SOURCES.txt'
+[1.078s] running build
+[1.078s] running build_py
+[1.078s] creating /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build
+[1.078s] creating /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib
+[1.079s] creating /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib/detector
+[1.079s] copying detector/color.py -> /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib/detector
+[1.079s] copying detector/__init__.py -> /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib/detector
+[1.079s] running install
+[1.084s] running install_lib
+[1.107s] creating /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector
+[1.107s] copying /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib/detector/color.py -> /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector
+[1.107s] copying /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build/lib/detector/__init__.py -> /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector
+[1.108s] byte-compiling /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector/color.py to color.cpython-312.pyc
+[1.109s] byte-compiling /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector/__init__.py to __init__.cpython-312.pyc
+[1.109s] running install_data
+[1.109s] creating /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/share/ament_index
+[1.109s] creating /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/share/ament_index/resource_index
+[1.109s] creating /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/share/ament_index/resource_index/packages
+[1.109s] copying resource/detector -> /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/share/ament_index/resource_index/packages
+[1.110s] copying package.xml -> /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/share/detector
+[1.110s] running install_egg_info
+[1.133s] Copying build/detector/detector.egg-info to /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages/detector-0.0.0-py3.12.egg-info
+[1.133s] running install_scripts
+[1.268s] Installing detect_node script to /home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/detector
+[1.268s] writing list of installed files to '/home/harshitha/shunya_remote2025_ws/src/detector/build/detector/install.log'
+[1.290s] Invoked command in '/home/harshitha/shunya_remote2025_ws/src/detector' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/harshitha/shunya_remote2025_ws/src/detector/build/detector/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/harshitha/shunya_remote2025_ws/src/detector/install/detector/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/detector build --build-base /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/build install --record /home/harshitha/shunya_remote2025_ws/src/detector/build/detector/install.log --single-version-externally-managed install_data
