@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>nav_stack</name>
+  <version>0.0.1</version>
+  <description>A package for relaying topics and launching Nav2 with RTAB-Map and Cartographer 3D mapping</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Apache License 2.0</license>
+
+  <!-- Build tool dependencies -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <!-- Core ROS 2 dependencies -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+
+  <!-- Message types -->
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>stereo_msgs</depend>
+  
+  <!-- Transform related dependencies -->
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <!-- Launch dependencies -->
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>launch</exec_depend>
+
+  <!-- Topic tools dependency -->
+  <exec_depend>topic_tools</exec_depend>
+
+  <!-- SLAM dependencies -->
+  <exec_depend>slam_toolbox</exec_depend>
+
+  <!-- Nav2 core dependencies -->
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_bt_navigator</exec_depend>
+  <exec_depend>nav2_costmap_2d</exec_depend>
+  <exec_depend>nav2_controller</exec_depend>
+  <exec_depend>nav2_planner</exec_depend>
+  <exec_depend>nav2_behaviors</exec_depend>
+  <exec_depend>nav2_waypoint_follower</exec_depend>
+  <exec_depend>nav2_navfn_planner</exec_depend>
+
+  <!-- BT node dependencies -->
+  <depend>nav2_behavior_tree</depend>
+  <depend>nav2_core</depend>
+  <depend>nav2_msgs</depend>
+  <depend>behaviortree_cpp</depend>
+  <depend>pluginlib</depend>
+  <depend>std_srvs</depend>
+
+  <!-- RTAB-Map dependencies -->
+  <exec_depend>rtabmap_ros</exec_depend>
+  <exec_depend>rtabmap_launch</exec_depend>
+  <exec_depend>rtabmap_util</exec_depend>
+  <exec_depend>rtabmap_sync</exec_depend>
+  <exec_depend>rtabmap_viz</exec_depend>
+  <exec_depend>rtabmap_slam</exec_depend>
+  <exec_depend>rtabmap_odom</exec_depend>
+
+  <!-- Image processing -->
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>ffmpeg_image_transport_msgs</exec_depend>
+
+  <!-- PCL support -->
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>pcl_conversions</exec_depend>
+
+  <!-- ArUco dependencies -->
+  <depend>aruco_markers_msgs</depend>
+
+  <!-- URDF and robot description -->
+  <depend>urdf</depend>
+  <depend>robot_state_publisher</depend>
+
+  <!-- Visualization -->
+  <depend>rviz2</depend>
+
+  <!-- Python message dependencies -->
+  <exec_depend>sensor_msgs_py</exec_depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <!-- Only include this if you have custom BT plugins -->
+    <nav2_core plugin="${prefix}/bt_plugins.xml" />
+  </export>
+</package>

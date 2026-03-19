@@ -1,0 +1,34 @@
+front_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: front_cam_optical_frame
+      image_topic: /front_cam/color/image_raw
+      camera_info_topic: /front_cam/color/camera_info
+      dictionary: DICT_4X4_100
+back_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: back_cam_optical_frame
+      image_topic: /back_cam/color/image_raw
+      camera_info_topic: /back_cam/color/camera_info
+      dictionary: DICT_4X4_100
+
+left_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: left_cam_optical_frame
+      image_topic: /left_cam/color/image_raw
+      camera_info_topic: /left_cam/color/camera_info
+      dictionary: DICT_4X4_100
+
+right_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: right_cam_optical_frame
+      image_topic: /right_cam/color/image_raw
+      camera_info_topic: /right_cam/color/camera_info
+      dictionary: DICT_4X4_100

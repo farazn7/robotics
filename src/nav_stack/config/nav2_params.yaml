@@ -1,0 +1,314 @@
+# Nav2 Parameters for LiDAR-only Navigation with RTAB-Map
+# Optimized for solid map appearance and reliable navigation
+# PERFORMANCE OPTIMIZED VERSION - Reduced computational load while maintaining functionality
+
+/**:
+  ros__parameters:
+    use_sim_time: false  # <--- CRITICAL CHANGE: Set to true for simulation, APPLIES GLOBALLY
+
+# Controller Server Configuration
+controller_server:
+  ros__parameters:
+    enable_stamped_cmd_vel: true  # TwistStamped configuration - moved to top level
+    controller_frequency: 15.0    # REDUCED: From 20.0 to 15.0 for performance
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.001
+    min_theta_velocity_threshold: 0.001
+    failure_tolerance: 0.3
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugins: ["general_goal_checker"]
+    controller_plugins: ["FollowPath"]
+    
+    progress_checker:
+      plugin: "nav2_controller::SimpleProgressChecker"
+      required_movement_radius: 0.5
+      movement_time_allowance: 10.0
+    
+    general_goal_checker:
+      stateful: true
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.2
+      yaw_goal_tolerance: 0.3
+    
+    FollowPath:
+      plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
+      desired_linear_vel: 0.5
+      lookahead_dist: 0.8
+      min_lookahead_dist: 0.4
+      max_lookahead_dist: 1.2
+      lookahead_time: 1.5
+      rotate_to_heading_angular_vel: 1.0
+      transform_tolerance: 0.5       # INCREASED: From 0.3 to 0.5 for more robustness
+      use_velocity_scaled_lookahead_dist: true
+      min_approach_linear_velocity: 0.05
+      use_collision_detection: true
+      max_allowed_time_to_collision_up_to_carrot: 1.0
+      use_regulated_linear_velocity_scaling: true
+      use_cost_regulated_linear_velocity_scaling: true
+      regulated_linear_scaling_min_radius: 0.9
+      regulated_linear_scaling_min_speed: 0.25
+      use_rotate_to_heading: true
+      rotate_to_heading_min_angle: 0.785
+      max_linear_accel: 2.0
+      max_linear_decel: 2.5
+      max_angular_accel: 3.0
+      max_robot_pose_search_dist: 10.0
+
+# Planner Server Configuration
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 8.0  # REDUCED: From 10.0 to 8.0 for performance
+    planner_plugins: ["GridBased"]
+    
+    GridBased:
+      plugin: "nav2_navfn_planner::NavfnPlanner"
+      tolerance: 0.5
+      use_astar: false
+      allow_unknown: true
+
+# Behavior Server Configuration
+behavior_server:
+  ros__parameters:
+    enable_stamped_cmd_vel: true  # TwistStamped configuration - moved to top level
+    costmap_topic: local_costmap/costmap_raw
+    footprint_topic: local_costmap/published_footprint
+    cycle_frequency: 8.0           # REDUCED: From 10.0 to 8.0 for performance
+    behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]
+    
+    spin:
+      plugin: "nav2_behaviors::Spin"
+    backup:
+      plugin: "nav2_behaviors::BackUp"
+    drive_on_heading:
+      plugin: "nav2_behaviors::DriveOnHeading"
+    assisted_teleop:
+      plugin: "nav2_behaviors::AssistedTeleop"
+    wait:
+      plugin: "nav2_behaviors::Wait"
+
+# BT Navigator Configuration
+bt_navigator:
+  ros__parameters:
+    global_frame: map
+    robot_base_frame: panther/base_link
+    odom_topic: /panther/odometery/filtered
+    bt_loop_duration: 10
+    default_server_timeout: 20
+    action_server_result_timeout: 900.0
+    navigators: ["navigate_to_pose", "navigate_through_poses"]
+    
+    navigate_to_pose:
+      plugin: "nav2_bt_navigator::NavigateToPoseNavigator"
+    navigate_through_poses:
+      plugin: "nav2_bt_navigator::NavigateThroughPosesNavigator"
+
+# Waypoint Follower Configuration
+waypoint_follower:
+  ros__parameters:
+    loop_rate: 15                  # REDUCED: From 20 to 15 for performance
+    stop_on_failure: false
+    waypoint_task_executor_plugin: "wait_at_waypoint"
+    
+    wait_at_waypoint:
+      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
+      enabled: true
+      waypoint_pause_duration: 200
+
+# Local Costmap Configuration - Optimized for LiDAR and Performance
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 3.0        # REDUCED: From 5.0 to 3.0 for performance
+      publish_frequency: 1.5       # REDUCED: From 2.0 to 1.5 for performance
+      global_frame: panther/odom
+      robot_base_frame: panther/base_link
+      rolling_window: true
+      width: 4
+      height: 4
+      resolution: 0.05
+      footprint: "[[0.35, 0.35], [0.35, -0.35], [-0.35, -0.35], [-0.35, 0.35]]"
+      plugins: ["voxel_layer", "inflation_layer"]
+      
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 5.0 
+        inflation_radius: 0.4   
+        
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: true
+        publish_voxel_map: true
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16             
+        max_obstacle_height: 2.5
+        mark_threshold: 0
+        observation_sources: velodyne_cloud
+        
+        velodyne_cloud:
+          topic: /ground_stabilized_points
+          max_obstacle_height: 2.5
+          clearing: true
+          marking: true
+          data_type: "PointCloud2"
+          raytrace_max_range: 15.0
+          raytrace_min_range: 0.05
+          obstacle_max_range: 10.0 
+          obstacle_min_range: 0.05
+          expected_update_rate: 5.0  # REDUCED: From 10.0 to 5.0 to match reality
+          obstacle_range: 10.0
+          raytrace_range: 15.0
+          inf_is_valid: false
+          clearing_on_max_range: false
+      
+      always_send_full_costmap: false
+
+# Global Costmap Configuration - Uses RTAB-Map with Performance Optimization
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 0.5        # REDUCED: From 1.0 to 0.5 for performance
+      publish_frequency: 0.5       # REDUCED: From 1.0 to 0.5 for performance
+      global_frame: map
+      robot_base_frame: panther/base_link
+      footprint: "[[0.35, 0.35], [0.35, -0.35], [-0.35, -0.35], [-0.35, 0.35]]"
+      resolution: 0.05
+      track_unknown_space: true
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer", 'voxel_layer']
+      
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true
+        subscribe_to_updates: true
+        transform_tolerance: 0.8     # INCREASED: From 0.5 to 0.8 for robustness
+      
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True
+        footprint_clearing_enabled: true
+        max_obstacle_height: 2.0
+        publish_voxel_map: True
+        origin_z: 0.0  
+        z_resolution: 0.05
+        z_voxels: 16
+        unknown_threshold: 15
+        mark_threshold: 0
+        observation_sources: pointcloud
+        combination_method: 1
+        pointcloud:
+          topic: /ground_stabilized_points
+          max_obstacle_height: 2.0
+          min_obstacle_height: 0.12  
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          clearing: True
+          marking: True
+          data_type: "PointCloud2"
+        
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: velodyne_cloud
+        
+        velodyne_cloud:
+          topic: /ground_stabilized_points
+          max_obstacle_height: 2.5
+          min_obstacle_height: 0.12  
+          clearing: true
+          marking: true
+          data_type: "PointCloud2"
+          raytrace_max_range: 15.0
+          raytrace_min_range: 0.05
+          obstacle_max_range: 10.0
+          obstacle_min_range: 0.05
+          expected_update_rate: 5.0  # REDUCED: From 10.0 to 5.0 to match actual rate
+          obstacle_range: 10.0        
+          raytrace_range: 15.0        
+          inf_is_valid: false
+          clearing_on_max_range: false 
+          
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 5.0
+        inflation_radius: 0.45
+        
+      always_send_full_costmap: false
+
+# Map Server Configuration - Uses RTAB-Map
+map_server:
+  ros__parameters:
+    topic_name: "map"
+    frame_id: "map"
+
+# Lifecycle Manager Configuration
+lifecycle_manager:
+  ros__parameters:
+    autostart: true
+    node_names: ['controller_server', 'collision_monitor', 'planner_server', 'behavior_server', 'bt_navigator', 'waypoint_follower', 'map_server']
+
+# Collision Monitor Configuration (Optional) - Performance Optimized
+collision_monitor:
+  ros__parameters:
+    enable_stamped_cmd_vel: true  
+    base_frame_id: "panther/base_link"
+    odom_frame_id: "panther/odom"
+    cmd_vel_in_topic: "cmd_vel_nav"
+    cmd_vel_out_topic: "/panther/cmd_vel"
+    state_topic: "collision_monitor_state"
+    transform_tolerance: 0.3       # INCREASED: From 0.2 to 0.3 for robustness
+    source_timeout: 5.0            # INCREASED: From 4.0 to 5.0 for robustness
+    base_shift_correction: true
+    stop_pub_timeout: 2.0
+    
+    polygons: ["FootprintStop"]
+    observation_sources: ["velodyne_cloud"]
+    
+    velodyne_cloud:
+      type: "pointcloud"
+      topic: "/ground_stabilized_points"
+      min_height: 0.1
+      max_height: 2.0
+      enabled: true
+      
+    FootprintStop:
+      type: "polygon"
+      points: "[[0.4, 0.4], [0.4, -0.4], [-0.4, -0.4], [-0.4, 0.4]]"
+      action_type: "stop"
+      min_points: 4
+      visualize: true
+      polygon_pub_topic: "stop_polygon"
+
+# Smoother Server Configuration (Optional)
+smoother_server:
+  ros__parameters:
+    smoother_plugins: ["simple_smoother"]
+    
+    simple_smoother:
+      plugin: "nav2_smoother::SimpleSmoother"
+      tolerance: 1.0e-10
+      max_its: 1000
+      do_refinement: true
+
+docking_server:
+  ros__parameters:
+    enable_stamped_cmd_vel: true  
+    controller_frequency: 40.0     # REDUCED: From 50.0 to 40.0 for performance
+    initial_perception_timeout: 5.0
+    wait_charge_timeout: 5.0
+    dock_approach_timeout: 30.0
+    undock_timeout: 30.0
+    max_retries: 3
+    base_frame: "panther/base_link"
+    fixed_frame: "panther/odom"
+    dock_backwards: false
+    dock_prestaging_tolerance: 0.5
+    
+    dock_plugins: ["simple_charging_dock"]
+    
+    simple_charging_dock:
+      plugin: "opennav_docking::SimpleChargingDock"
+      docking_threshold: 0.05
+      staging_x_offset: -0.7
+      staging_yaw_offset: 0.0

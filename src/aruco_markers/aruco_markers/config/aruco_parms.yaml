@@ -1,0 +1,34 @@
+front_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: panther/camera_front
+      image_topic: /panther/camera_front/image_raw
+      camera_info_topic: /panther/camera_front/camera_info
+      dictionary: DICT_4X4_100
+back_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: panther/camera_back
+      image_topic: /panther/camera_back/image_raw
+      camera_info_topic: /panther/camera_back/camera_info
+      dictionary: DICT_4X4_100
+
+left_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: panther/camera_left
+      image_topic: /panther/camera_left/image_raw
+      camera_info_topic: /panther/camera_left/camera_info
+      dictionary: DICT_4X4_100
+
+right_cam:
+  aruco_markers:
+    ros__parameters:
+      marker_size: 0.1
+      camera_frame: panther/camera_right
+      image_topic: /panther/camera_right/image_raw
+      camera_info_topic: /panther/camera_right/camera_info
+      dictionary: DICT_4X4_100

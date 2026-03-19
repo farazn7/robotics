@@ -1,0 +1,54 @@
+<!-- behavior_trees/multi_camera_navigation.xml -->
+<root>
+  <BehaviorTree ID="MultiCameraNavigation">
+    <Sequence>
+      <!-- Detect ArUco marker from 4 cameras -->
+      <MultiCameraArucoDetection 
+        target_marker_id="{target_marker}" 
+        detected_pose="{raw_marker_pose}"
+        detection_confidence="{confidence}"
+        detecting_cameras="{num_cameras}"/>
+      
+      <!-- Calculate approach pose with offset -->
+      <CalculateOffsetPose 
+        input_pose="{raw_marker_pose}"
+        offset_distance="1.0"
+        output_pose="{approach_pose}"/>
+      
+      <!-- Navigate to the calculated pose using Nav2 -->
+      <NavigateToPose 
+        goal="{approach_pose}"
+        behavior_tree="navigate_to_pose_w_replanning_and_recovery.xml"/>
+      
+    </Sequence>
+  </BehaviorTree>
+</root>
+
+<!-- Alternative: More complex tree with retry logic -->
+<root>
+  <BehaviorTree ID="MultiCameraNavigationWithRetry">
+    <RetryUntilSuccessful num_attempts="3">
+      <Sequence>
+        <!-- Detect marker -->
+        <MultiCameraArucoDetection 
+          target_marker_id="{target_marker}" 
+          detected_pose="{raw_marker_pose}"/>
+        
+        <!-- Check detection confidence -->
+        <Condition>
+          <script code="{confidence} &gt; 0.5"/>
+        </Condition>
+        
+        <!-- Calculate approach pose -->
+        <CalculateOffsetPose 
+          input_pose="{raw_marker_pose}"
+          offset_distance="{approach_distance}"
+          output_pose="{approach_pose}"/>
+        
+        <!-- Navigate with recovery -->
+        <NavigateToPose goal="{approach_pose}"/>
+        
+      </Sequence>
+    </RetryUntilSuccessful>
+  </BehaviorTree>
+</root>
